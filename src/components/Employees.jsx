@@ -33,11 +33,13 @@ const EmployeeTable = () => {
 
   // Handle previous page
   const handlePreviousPage = () => {
+    if (currentPage === 1) return;
     setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
   };
 
   // Handle next page
   const handleNextPage = () => {
+    if (currentPage === totalPages) return;
     setCurrentPage((prevPage) => Math.min(prevPage + 1, totalPages));
   };
 
