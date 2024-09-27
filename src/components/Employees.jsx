@@ -57,26 +57,28 @@ const EmployeeTable = () => {
       <div>
         {!hasError && (
           <>
-            <table>
-              <thead>
-                <tr>
-                  <th>ID</th>
-                  <th>Name</th>
-                  <th>Email</th>
-                  <th>Role</th>
-                </tr>
-              </thead>
-              <tbody>
-                {currentEmployees.map((employee, index) => (
-                  <tr key={index}>
-                    <td>{employee.id}</td>
-                    <td>{employee.name}</td>
-                    <td>{employee.email}</td>
-                    <td>{employee.role}</td>
+            <div>
+              <table>
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Role</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {currentEmployees.map((employee, index) => (
+                    <tr key={index}>
+                      <td>{employee.id}</td>
+                      <td>{employee.name}</td>
+                      <td>{employee.email}</td>
+                      <td>{employee.role}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
             <div className="pagination">
               <button
                 onClick={handlePreviousPage} /*disabled={currentPage === 1}*/
