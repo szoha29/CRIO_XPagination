@@ -4,6 +4,7 @@ import "./Employees.css";
 const EmployeeTable = () => {
   const [employees, setEmployees] = useState([]); // to store all employees
   const [currentPage, setCurrentPage] = useState(1); // track the current page
+  const [totalPages, setTotalPages] = useState(0); // track total number of pages
   const [hasError, setHasError] = useState(false); // track error state
   const employeesPerPage = 10; // 10 entries per page
 
@@ -23,6 +24,21 @@ const EmployeeTable = () => {
       setHasError(true);
       alert("failed to fetch data");
     }
+  };
+
+  // Calculate total number of pages
+  useEffect(() => {
+    setTotalPages(Math.ceil(employees.length / employeesPerPage));
+  }, [employees]);
+
+  // Handle previous page
+  const handlePreviousPage = () => {
+    setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
+  };
+
+  // Handle next page
+  const handleNextPage = () => {
+    setCurrentPage((prevPage) => Math.min(prevPage + 1, totalPages));
   };
 
   // Calculate the index for slicing data for current page
@@ -59,26 +75,17 @@ const EmployeeTable = () => {
           </table>
           <div className="pagination">
             <button
-              onClick={() =>
-                setCurrentPage((prevPage) => Math.max(prevPage - 1, 1))
-              }
-              disabled={currentPage === 1}
+              onClick={handlePreviousPage} /*disabled={currentPage === 1}*/
             >
               Previous
             </button>
             <button>{currentPage}</button>
             <button
-              onClick={() =>
-                setCurrentPage((prevPage) =>
-                  Math.min(
-                    prevPage + 1,
-                    Math.ceil(employees.length / employeesPerPage)
-                  )
-                )
-              }
-              disabled={
-                currentPage === Math.ceil(employees.length / employeesPerPage)
-              }
+              onClick={handleNextPage}
+              /*disabled={
+                currentPage === totalPages ||
+                employees.length < employeesPerPage
+              }*/
             >
               Next
             </button>
