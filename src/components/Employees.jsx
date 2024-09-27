@@ -21,6 +21,7 @@ const EmployeeTable = () => {
       setEmployees(data);
     } catch (error) {
       setHasError(true);
+      alert("failed to fetch data");
     }
   };
 
@@ -34,9 +35,7 @@ const EmployeeTable = () => {
 
   return (
     <div>
-      {hasError ? (
-        <p>failed to fetch data</p>
-      ) : (
+      {!hasError && (
         <>
           <table>
             <thead>
