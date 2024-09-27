@@ -41,3 +41,7 @@ button:disabled {
 button:hover:not(:disabled) {
     background-color: #005f00;
 }
+
+.title {
+    text-align: center;
+}
