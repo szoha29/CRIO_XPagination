@@ -5,7 +5,6 @@ const EmployeeTable = () => {
   const [employees, setEmployees] = useState([]); // to store all employees
   const [currentPage, setCurrentPage] = useState(1); // track the current page
   const [totalPages, setTotalPages] = useState(0); // track total number of pages
-  const [hasError, setHasError] = useState(false); // track error state
   const employeesPerPage = 10; // 10 entries per page
 
   useEffect(() => {
@@ -21,7 +20,6 @@ const EmployeeTable = () => {
       const data = await response.json();
       setEmployees(data);
     } catch (error) {
-      setHasError(true);
       alert("failed to fetch data");
     }
   };
@@ -34,13 +32,13 @@ const EmployeeTable = () => {
   // Handle previous page
   const handlePreviousPage = () => {
     if (currentPage === 1) return;
-    setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
+    setCurrentPage((prevPage) => prevPage - 1);
   };
 
   // Handle next page
   const handleNextPage = () => {
     if (currentPage === totalPages) return;
-    setCurrentPage((prevPage) => Math.min(prevPage + 1, totalPages));
+    setCurrentPage((prevPage) => prevPage + 1);
   };
 
   // Calculate the index for slicing data for current page
@@ -55,49 +53,35 @@ const EmployeeTable = () => {
     <>
       <h1 className="title">Employee Data Table</h1>
       <div>
-        {!hasError && (
-          <>
-            <div>
-              <table>
-                <thead>
-                  <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Role</th>
+        <>
+          <div>
+            <table>
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Role</th>
+                </tr>
+              </thead>
+              <tbody>
+                {currentEmployees.map((employee, index) => (
+                  <tr key={index}>
+                    <td>{employee.id}</td>
+                    <td>{employee.name}</td>
+                    <td>{employee.email}</td>
+                    <td>{employee.role}</td>
                   </tr>
-                </thead>
-                <tbody>
-                  {currentEmployees.map((employee, index) => (
-                    <tr key={index}>
-                      <td>{employee.id}</td>
-                      <td>{employee.name}</td>
-                      <td>{employee.email}</td>
-                      <td>{employee.role}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-            <div className="pagination">
-              <button
-                onClick={handlePreviousPage} /*disabled={currentPage === 1}*/
-              >
-                Previous
-              </button>
-              <p>{currentPage}</p>
-              <button
-                onClick={handleNextPage}
-                /*disabled={
-                currentPage === totalPages ||
-                employees.length < employeesPerPage
-              }*/
-              >
-                Next
-              </button>
-            </div>
-          </>
-        )}
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <div className="pagination">
+            <button onClick={handlePreviousPage}>Previous</button>
+            <p>{currentPage}</p>
+            <button onClick={handleNextPage}>Next</button>
+          </div>
+        </>
       </div>
     </>
   );
