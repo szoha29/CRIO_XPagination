@@ -1,0 +1,43 @@
+table {
+    width: 100%;
+    border-collapse: collapse;
+    position: relative;
+    border-bottom: 4px solid #00896c;
+}
+
+thead {
+    background-color: #00896c;
+    color: white;
+}
+
+th,
+td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+button {
+    background-color: #00896c;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 10px;
+    margin: 0 15px;
+    cursor: pointer;
+}
+
+button:disabled {
+    background-color: grey;
+    cursor: not-allowed;
+}
+
+button:hover:not(:disabled) {
+    background-color: #005f00;
+}
