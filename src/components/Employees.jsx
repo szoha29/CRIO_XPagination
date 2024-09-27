@@ -81,7 +81,7 @@ const EmployeeTable = () => {
             >
               Previous
             </button>
-            <button>{currentPage}</button>
+            <p>{currentPage}</p>
             <button
               onClick={handleNextPage}
               /*disabled={
